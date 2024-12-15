@@ -7,34 +7,37 @@ import java.util.Queue;
 
 public class SeqBFS extends BFS {
 
-    public SeqBFS(Graph graph, int source) {
-        super(graph, source);
+    public SeqBFS(Graph graph, int sourceNode) {
+        super(graph, sourceNode);
     }
 
     @Override
     public int[] execute() {
-        int n = graph.getNumberOfNodes();
-        BitSet visited = new BitSet(n);
-        int[] distances = new int[n];
+        int n = graph.getNumberOfNodesInGraph();
         Queue<Integer> queue = new LinkedList<>();
+        int[] distances = new int[n];
+        //boolean[] visited = new boolean[n];
+        BitSet visited = new BitSet(n);
 
-        queue.add(source);
-        visited.set(source);
-        distances[source] = 0;
+        queue.add(sourceNode);
+        distances[sourceNode] = 0;
+        //visited[sourceNode] = true;
+        visited.set(sourceNode);
 
         while (!queue.isEmpty()) {
             int current = queue.poll();
             int currentDistance = distances[current];
-            List<Integer> neighbors = graph.getNeighbors(current);
+            List<Integer> neighbors = graph.getNeighborsForNode(current);
             for (int neighbor : neighbors) {
+                //if (!visited[neighbor]) {
                 if (!visited.get(neighbor)) {
+                    //visited[neighbor] = true;
                     visited.set(neighbor);
                     distances[neighbor] = currentDistance + 1;
                     queue.add(neighbor);
                 }
             }
         }
-
         return distances;
     }
 }

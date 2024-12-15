@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public abstract class BFS {
     Graph graph;
-    int source;
+    int sourceNode;
 
     public abstract int[] execute();
 }
